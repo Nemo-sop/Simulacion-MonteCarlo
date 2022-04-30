@@ -92,11 +92,8 @@ def simular(horas, cantLlamadas, puntoPartida=0):
             if sexo != "nadie":
                 acumAtendidas +=1
 
-        if (puntoPartida <= j <= puntoPartida + 400) or j == horas-1:
+        if (puntoPartida <= j < puntoPartida + 400) or j == horas-1:
             gastoTotal = (gastos["mujer"] + gastos["hombre"])
-
-            # if cantLlamadas == 28:
-            #      gastoTotal *= 0.65
 
             fila = pd.DataFrame(
                 {"Hora": [j+1],
@@ -109,6 +106,7 @@ def simular(horas, cantLlamadas, puntoPartida=0):
                  "Ganancia Acumulada": [gastoAcumulado],
                  "Ganancia Promedio": [gastoAcumulado/(j+1)]
                  })
+            #print(fila)
 
             tabla = pd.concat([tabla, fila], ignore_index=True)
 
@@ -116,19 +114,19 @@ def simular(horas, cantLlamadas, puntoPartida=0):
     return gastoAcumulado / horas, tabla
 
 
-def nuevaSimulacion(horas, pantalla):
-    cantidad = 20*horas
+def nuevaSimulacion(horas, partida,pantalla):
+
     llamadasHora = [20, 28]
 
     start = time.time()
 
-    ganVoluntariado, tablaVoluntariado = simular(horas, llamadasHora[0])
-    ganCall, tablaCall = simular(horas, llamadasHora[1])
+    ganVoluntariado, tablaVoluntariado = simular(horas, llamadasHora[0], partida)
+    ganCall, tablaCall = simular(horas, llamadasHora[1], partida)
 
     tiempoSim = time.time() - start
 
-    pantalla.cargarResultados(ganVoluntariado, ganCall, tiempoSim)
+    pantalla.cargarResultados(ganVoluntariado, ganCall, tiempoSim, tablaVoluntariado, tablaCall)
 
-    print("Ganancia promedio por hora de voluntariado: " + str(round(ganVoluntariado, 3)) + "\n"
-          "Ganancia promedio por hora del callcenter: " + str(round(ganCall, 3)))
-    print("Tiempo usado en la simulacion: " + str(round(tiempoSim, 2)) + "s")
+    # print("Ganancia promedio por hora de voluntariado: " + str(round(ganVoluntariado, 3)) + "\n"
+    #       "Ganancia promedio por hora del callcenter: " + str(round(ganCall, 3)))
+    # print("Tiempo usado en la simulacion: " + str(round(tiempoSim, 2)) + "s")

@@ -6,27 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1043</width>
-    <height>587</height>
+    <width>1249</width>
+    <height>880</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>1043</width>
-    <height>587</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>1043</width>
-    <height>587</height>
-   </size>
   </property>
   <property name="palette">
    <palette>
@@ -160,6 +142,15 @@
      <colorrole role="ToolTipText">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
         <red>0</red>
         <green>0</green>
         <blue>0</blue>
@@ -303,6 +294,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
     </inactive>
     <disabled>
      <colorrole role="WindowText">
@@ -440,6 +440,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
     </disabled>
    </palette>
   </property>
@@ -462,7 +471,7 @@
      <rect>
       <x>60</x>
       <y>90</y>
-      <width>181</width>
+      <width>221</width>
       <height>16</height>
      </rect>
     </property>
@@ -475,7 +484,7 @@
      <rect>
       <x>460</x>
       <y>10</y>
-      <width>121</width>
+      <width>161</width>
       <height>51</height>
      </rect>
     </property>
@@ -498,71 +507,45 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>120</y>
-      <width>991</width>
-      <height>421</height>
+      <y>150</y>
+      <width>1211</width>
+      <height>691</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Berlin Sans FB</family>
+      <pointsize>11</pointsize>
       <underline>true</underline>
      </font>
     </property>
     <property name="title">
      <string>Resultados</string>
     </property>
-    <widget class="QPushButton" name="btnUniforme">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>860</x>
-       <y>40</y>
-       <width>91</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <underline>false</underline>
-      </font>
-     </property>
-     <property name="text">
-      <string>Elegir</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-     <property name="default">
-      <bool>false</bool>
-     </property>
-     <property name="flat">
-      <bool>false</bool>
-     </property>
-    </widget>
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>40</y>
-       <width>161</width>
+       <width>201</width>
        <height>16</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>Berlin Sans FB</family>
+       <pointsize>11</pointsize>
        <underline>false</underline>
       </font>
      </property>
      <property name="text">
-      <string>Ganancias por hora</string>
+      <string>Ganancias promedio (xhr)</string>
      </property>
     </widget>
     <widget class="QLabel" name="lblMedia">
      <property name="geometry">
       <rect>
-       <x>190</x>
+       <x>260</x>
        <y>20</y>
        <width>221</width>
        <height>16</height>
@@ -584,7 +567,7 @@
       <rect>
        <x>560</x>
        <y>20</y>
-       <width>111</width>
+       <width>151</width>
        <height>16</height>
       </rect>
      </property>
@@ -604,7 +587,7 @@
       <rect>
        <x>20</x>
        <y>70</y>
-       <width>951</width>
+       <width>1151</width>
        <height>16</height>
       </rect>
      </property>
@@ -615,7 +598,7 @@
     <widget class="QLineEdit" name="txtGanVol">
      <property name="geometry">
       <rect>
-       <x>190</x>
+       <x>260</x>
        <y>40</y>
        <width>113</width>
        <height>20</height>
@@ -623,6 +606,8 @@
      </property>
      <property name="font">
       <font>
+       <family>Berlin Sans FB</family>
+       <pointsize>11</pointsize>
        <underline>false</underline>
       </font>
      </property>
@@ -641,6 +626,8 @@
      </property>
      <property name="font">
       <font>
+       <family>Berlin Sans FB</family>
+       <pointsize>11</pointsize>
        <underline>false</underline>
       </font>
      </property>
@@ -653,12 +640,14 @@
       <rect>
        <x>30</x>
        <y>100</y>
-       <width>211</width>
+       <width>241</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>Berlin Sans FB</family>
+       <pointsize>11</pointsize>
        <underline>false</underline>
       </font>
      </property>
@@ -669,7 +658,7 @@
     <widget class="QLineEdit" name="txtTiempo">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>280</x>
        <y>100</y>
        <width>113</width>
        <height>20</height>
@@ -677,6 +666,8 @@
      </property>
      <property name="font">
       <font>
+       <family>Berlin Sans FB</family>
+       <pointsize>11</pointsize>
        <underline>false</underline>
       </font>
      </property>
@@ -687,10 +678,10 @@
     <widget class="QTableWidget" name="tablaSimVolun">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>160</y>
-       <width>951</width>
-       <height>91</height>
+       <x>10</x>
+       <y>170</y>
+       <width>1191</width>
+       <height>241</height>
       </rect>
      </property>
      <property name="font">
@@ -755,14 +746,16 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>130</y>
-       <width>211</width>
+       <x>10</x>
+       <y>140</y>
+       <width>231</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>Berlin Sans FB</family>
+       <pointsize>11</pointsize>
        <underline>false</underline>
       </font>
      </property>
@@ -773,14 +766,16 @@
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>260</y>
+       <x>10</x>
+       <y>440</y>
        <width>211</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>Berlin Sans FB</family>
+       <pointsize>11</pointsize>
        <underline>false</underline>
       </font>
      </property>
@@ -791,10 +786,10 @@
     <widget class="QTableWidget" name="tablaSimCall">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>290</y>
-       <width>951</width>
-       <height>131</height>
+       <x>10</x>
+       <y>470</y>
+       <width>1191</width>
+       <height>211</height>
       </rect>
      </property>
      <property name="font">
@@ -884,7 +879,7 @@
    <widget class="QLineEdit" name="txtCantHoras">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>280</x>
       <y>90</y>
       <width>113</width>
       <height>20</height>
@@ -892,6 +887,8 @@
     </property>
     <property name="font">
      <font>
+      <family>Berlin Sans FB</family>
+      <pointsize>11</pointsize>
       <underline>false</underline>
      </font>
     </property>
@@ -902,14 +899,16 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>80</y>
+      <x>1120</x>
+      <y>70</y>
       <width>91</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Berlin Sans FB</family>
+      <pointsize>11</pointsize>
       <underline>false</underline>
      </font>
     </property>
@@ -926,12 +925,44 @@
      <bool>false</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>90</y>
+      <width>251</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Punto de partida para visualizar</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="txtPtoPartida">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>90</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Berlin Sans FB</family>
+      <pointsize>11</pointsize>
+      <underline>false</underline>
+     </font>
+    </property>
+   </widget>
    <zorder>groupBox</zorder>
    <zorder>label_5</zorder>
    <zorder>lblTitulo</zorder>
    <zorder>lblSubTitulo</zorder>
    <zorder>txtCantHoras</zorder>
    <zorder>btnSimular</zorder>
+   <zorder>label_6</zorder>
+   <zorder>txtPtoPartida</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
@@ -939,7 +970,6 @@
   <tabstop>txtCantHoras</tabstop>
   <tabstop>txtGanVol</tabstop>
   <tabstop>txtGanCall</tabstop>
-  <tabstop>btnUniforme</tabstop>
  </tabstops>
  <resources/>
  <connections/>
