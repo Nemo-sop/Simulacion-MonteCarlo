@@ -15,9 +15,9 @@ class PantallaIngresoDatos(QMainWindow):
         self.btnSimular.clicked.connect(self.nuevaSimulacion)
 
     def cargarResultados(self, ganVoluntariado, ganCall, tiempoSim):
-        self.txtGanVol.setText(ganVoluntariado)
-        self.txtGanCall.setText(ganCall)
-        self.txtTiempo.setText(str(tiempoSim))
+        self.txtGanVol.setText(str(round(ganVoluntariado,4)))
+        self.txtGanCall.setText(str(round(ganCall,4)))
+        self.txtTiempo.setText(str(round(tiempoSim,2))+'s')
 
     def nuevaSimulacion(self):
         simulaciones.nuevaSimulacion(int(self.txtCantHoras.text()), self)

@@ -1,8 +1,13 @@
-from datetime import time
-from random import random
+import time
+import random
 
 import numpy as np
+import pandas as pd
 
+columnas = ["Hora", "Cant Llamadas", "Cant Llamadas Atendidas", "Cant Compras", "Ganancia Mujeres",
+             "Ganancia Hombres", "Ganancia Total", "Ganancia Acumulada", "Ganancia Promedio"]
+
+tabla = pd.DataFrame(columnas)
 
 def truncate(values, decs=0):
     """funcion utilizada para truncar nuevaDistr y no trabajar con todos los decimales de python """
@@ -52,19 +57,63 @@ def gasto(sexo, rnd):
             return 25
 
 
-def simular(horas, cantLlamadas):
-    acum = 0
-    for j in range(horas):
-        for k in range(cantLlamadas):
-            rnd1 = random.random()
+def simular(horas, cantLlamadas, puntoPartida=0):
 
+    global gastoTotal
+    columnas = ["Hora", "Cant Llamadas", "Cant Llamadas Atendidas", "Cant Compras", "Ganancia Mujeres",
+                "Ganancia Hombres", "Ganancia Total", "Ganancia Acumulada", "Ganancia Promedio"]
+
+    tabla = pd.DataFrame(columnas)
+
+    gastoAcumulado = 0
+
+    for j in range(horas):
+        acumAtendidas = 0
+        acumCompra = 0
+        gastos = {"hombre": 0, "mujer": 0}
+
+        for k in range(cantLlamadas):
+
+            rnd1 = random.random()
             consume, sexo = situacion(rnd1)
             if consume:
                 rnd2 = random.random()
+                gastoTemp = gasto(sexo, rnd2)
 
-                acum += gasto(sexo, rnd2)
 
-    return acum / horas
+                if cantLlamadas == 28:
+                    gastoTemp = gastoTemp*0.65
+
+                gastoAcumulado += gastoTemp
+
+                acumCompra += 1
+                gastos[sexo] += gastoTemp
+
+            if sexo != "nadie":
+                acumAtendidas +=1
+
+        if (puntoPartida <= j <= puntoPartida + 400) or j == horas-1:
+            gastoTotal = (gastos["mujer"] + gastos["hombre"])
+
+            # if cantLlamadas == 28:
+            #      gastoTotal *= 0.65
+
+            fila = pd.DataFrame(
+                {"Hora": [j+1],
+                 "Cant Llamadas": [cantLlamadas],
+                 "Cant Llamadas Atendidas": [acumAtendidas],
+                 "Cant Compras": [acumCompra],
+                 "Ganancia Mujeres": [gastos["mujer"]],
+                 "Ganancia Hombres": [gastos["hombre"]],
+                 "Ganancia Total": [gastoTotal],
+                 "Ganancia Acumulada": [gastoAcumulado],
+                 "Ganancia Promedio": [gastoAcumulado/(j+1)]
+                 })
+
+            tabla = pd.concat([tabla, fila], ignore_index=True)
+
+
+    return gastoAcumulado / horas, tabla
 
 
 def nuevaSimulacion(horas, pantalla):
@@ -73,8 +122,8 @@ def nuevaSimulacion(horas, pantalla):
 
     start = time.time()
 
-    ganVoluntariado = simular(horas, llamadasHora[0])
-    ganCall = simular(horas, llamadasHora[1]) * 0.65
+    ganVoluntariado, tablaVoluntariado = simular(horas, llamadasHora[0])
+    ganCall, tablaCall = simular(horas, llamadasHora[1])
 
     tiempoSim = time.time() - start
 
