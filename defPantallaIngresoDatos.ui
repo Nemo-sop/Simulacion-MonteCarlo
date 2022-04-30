@@ -460,8 +460,8 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>120</y>
+      <x>60</x>
+      <y>90</y>
       <width>181</width>
       <height>16</height>
      </rect>
@@ -473,8 +473,8 @@
    <widget class="QLabel" name="lblTitulo">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>20</y>
+      <x>460</x>
+      <y>10</y>
       <width>121</width>
       <height>51</height>
      </rect>
@@ -497,10 +497,10 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>160</y>
+      <x>20</x>
+      <y>120</y>
       <width>991</width>
-      <height>231</height>
+      <height>421</height>
      </rect>
     </property>
     <property name="font">
@@ -544,8 +544,8 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>50</y>
+       <x>20</x>
+       <y>40</y>
        <width>161</width>
        <height>16</height>
       </rect>
@@ -562,8 +562,8 @@
     <widget class="QLabel" name="lblMedia">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>30</y>
+       <x>190</x>
+       <y>20</y>
        <width>221</width>
        <height>16</height>
       </rect>
@@ -582,8 +582,8 @@
     <widget class="QLabel" name="lblMedia_2">
      <property name="geometry">
       <rect>
-       <x>570</x>
-       <y>30</y>
+       <x>560</x>
+       <y>20</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -603,7 +603,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>80</y>
+       <y>70</y>
        <width>951</width>
        <height>16</height>
       </rect>
@@ -615,8 +615,8 @@
     <widget class="QLineEdit" name="txtGanVol">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>50</y>
+       <x>190</x>
+       <y>40</y>
        <width>113</width>
        <height>20</height>
       </rect>
@@ -633,8 +633,8 @@
     <widget class="QLineEdit" name="txtGanCall">
      <property name="geometry">
       <rect>
-       <x>570</x>
-       <y>50</y>
+       <x>560</x>
+       <y>40</y>
        <width>113</width>
        <height>20</height>
       </rect>
@@ -652,9 +652,9 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>120</y>
-       <width>141</width>
-       <height>51</height>
+       <y>100</y>
+       <width>211</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -669,8 +669,8 @@
     <widget class="QLineEdit" name="txtTiempo">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>140</y>
+       <x>240</x>
+       <y>100</y>
        <width>113</width>
        <height>20</height>
       </rect>
@@ -684,12 +684,184 @@
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QTableWidget" name="tablaSimVolun">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>160</y>
+       <width>951</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Berlin Sans FB</family>
+       <pointsize>12</pointsize>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>200</number>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Hora</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Cantidad Llamadas</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Cant. Llamadas Atendidas</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Cant. Compras</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Mujeres</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Hombres</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Total</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Acumulada</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Promedio</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>130</y>
+       <width>211</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>Simulación con Voluntariado</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>260</y>
+       <width>211</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>Simulación con Call Center</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="tablaSimCall">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>290</y>
+       <width>951</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Berlin Sans FB</family>
+       <pointsize>12</pointsize>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>200</number>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Hora</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Cantidad Llamadas</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Cant. Llamadas Atendidas</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Cant. Compras</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Mujeres</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Hombres</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Total</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Acumulada</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ganancia Promedio</string>
+      </property>
+     </column>
+    </widget>
    </widget>
    <widget class="QLabel" name="lblSubTitulo">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>80</y>
+      <x>30</x>
+      <y>50</y>
       <width>191</width>
       <height>21</height>
      </rect>
@@ -712,8 +884,8 @@
    <widget class="QLineEdit" name="txtCantHoras">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>120</y>
+      <x>260</x>
+      <y>90</y>
       <width>113</width>
       <height>20</height>
      </rect>
@@ -730,8 +902,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>110</y>
+      <x>530</x>
+      <y>80</y>
       <width>91</width>
       <height>31</height>
      </rect>
