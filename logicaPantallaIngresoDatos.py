@@ -33,14 +33,6 @@ class PantallaIngresoDatos(QMainWindow):
     def cargarTabla(self, tablaVoluntariado, tablaCall):
         fila = -9
 
-
-        columnas = ["Hora", "Cant Llamadas", "Cant Llamadas Atendidas", "Cant Compras", "Ganancia Mujeres",
-                    "Ganancia Hombres", "Ganancia Total", "Ganancia Acumulada", "Ganancia Promedio"]
-
-        # for i in range(len(tablaVoluntariado)):
-        #     for j in columnas:
-        #         self.tablaSimVolun.setItem(fila, i, QTableWidgetItem(str(tablaVoluntariado.at[i, j])))
-
         self.tablaSimCall.setRowCount(len(tablaCall)-9)
 
         for i in range(len(tablaCall)):
@@ -70,34 +62,16 @@ class PantallaIngresoDatos(QMainWindow):
                                                                            , 4))))
             fila = fila + 1
 
-
-        #
-        #
-        #
-        # for i in range(len(self.tablaCall)):
-        #     self.tablaSimCall.setItem(fila, 0, QTableWidgetItem(numero[0]))
-        #     self.tablaSimCall.setItem(fila, 1, QTableWidgetItem(str(self.frecuencias.at[i, "Frec. Observadas"])))
-        #     self.tablaSimCall.setItem(fila, 2, QTableWidgetItem(str(self.frecuencias.at[i, "Frec. Esperada"])))
-        #     self.tablaSimCall.setItem(fila, 3, QTableWidgetItem(str(self.frecuencias.at[i, "Frec. Relativa"])))
-        #     self.tablaSimCall.setItem(fila, 4, QTableWidgetItem(str(self.frecuencias.at[i, "Marca de Clase"])))
-
     def validarDatosValidos(self):
+
+        if self.txtCantHoras.text() == '' or self.txtPtoPartida.text() == '' \
+                or self.txtCantHoras.text() == " " or self.txtPtoPartida.text() == " ":
+            QMessageBox.warning(self, "Alerta", "Debe ingresar valores en los campos!")
+            return False
+
         cantidadHoras = float(self.txtCantHoras.text())
         puntoPartida = float(self.txtPtoPartida.text())
 
-        if cantidadHoras == '' or puntoPartida == '':
-            QMessageBox.warning(self, "Alerta", "Debe ingresar valores en los campos!")
-            return False
-        if float(cantidadHoras) <= 0 or float(puntoPartida) < 0:
-            QMessageBox.warning(self, "Alerta", "Debe ingresar números positivos!")
-            return False
-        if not self.esDecimal():
-            QMessageBox.warning(self, "Alerta", "Los números a ingresar deben ser enteros!")
-            return False
-        if puntoPartida > (cantidadHoras - 400):
-            QMessageBox.warning(self, "Alerta", "El Punto de Partida no puede ser mayor a " + str(cantidadHoras - 400) +
-                                " ya que no se pueden generar las 400 líneas a mostrar!")
-            return False
         if cantidadHoras < puntoPartida:
             QMessageBox.warning(self, "Alerta", "El Punto de Partida no puede ser mayor a la cantidad de horas (" +
                                                 str(cantidadHoras) +

@@ -901,7 +901,7 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>550</x>
       <y>90</y>
       <width>251</width>
       <height>16</height>
@@ -914,7 +914,7 @@
    <widget class="QLineEdit" name="txtPtoPartida">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>810</x>
       <y>90</y>
       <width>113</width>
       <height>20</height>
@@ -941,8 +941,13 @@
  </widget>
  <tabstops>
   <tabstop>txtCantHoras</tabstop>
-  <tabstop>txtGanVol</tabstop>
+  <tabstop>txtPtoPartida</tabstop>
+  <tabstop>btnSimular</tabstop>
+  <tabstop>txtTiempo</tabstop>
+  <tabstop>tablaSimVolun</tabstop>
+  <tabstop>tablaSimCall</tabstop>
   <tabstop>txtGanCall</tabstop>
+  <tabstop>txtGanVol</tabstop>
  </tabstops>
  <resources/>
  <connections/>

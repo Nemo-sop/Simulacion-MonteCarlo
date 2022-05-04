@@ -80,7 +80,6 @@ def simular(horas, cantLlamadas, puntoPartida=0):
                 rnd2 = random.random()
                 gastoTemp = gasto(sexo, rnd2)
 
-
                 if cantLlamadas == 28:
                     gastoTemp = gastoTemp*0.65
 
@@ -106,10 +105,8 @@ def simular(horas, cantLlamadas, puntoPartida=0):
                  "Ganancia Acumulada": [gastoAcumulado],
                  "Ganancia Promedio": [gastoAcumulado/(j+1)]
                  })
-            #print(fila)
 
             tabla = pd.concat([tabla, fila], ignore_index=True)
-
 
     return gastoAcumulado / horas, tabla
 
@@ -126,7 +123,3 @@ def nuevaSimulacion(horas, partida,pantalla):
     tiempoSim = time.time() - start
 
     pantalla.cargarResultados(ganVoluntariado, ganCall, tiempoSim, tablaVoluntariado, tablaCall)
-
-    # print("Ganancia promedio por hora de voluntariado: " + str(round(ganVoluntariado, 3)) + "\n"
-    #       "Ganancia promedio por hora del callcenter: " + str(round(ganCall, 3)))
-    # print("Tiempo usado en la simulacion: " + str(round(tiempoSim, 2)) + "s")
