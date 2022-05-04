@@ -1,5 +1,6 @@
 from PyQt5 import uic
-from PyQt5.QtGui import QIntValidator
+from PyQt5.QtCore import QRegExp
+from PyQt5.QtGui import QIntValidator, QRegExpValidator
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox
 
 import simulaciones
@@ -14,8 +15,9 @@ class PantallaIngresoDatos(QMainWindow):
         """Cargar la GUI"""
         uic.loadUi("defPantallaIngresoDatos.ui", self)
         self.btnSimular.clicked.connect(self.nuevaSimulacion)
-
-
+        regExpr = QRegExp("^([1-9]|[1-9][0-9]+)+$")
+        self.txtCantHoras.setValidator(QRegExpValidator(regExpr, self))
+        self.txtPtoPartida.setValidator(QRegExpValidator(regExpr, self))
 
     def cargarResultados(self, ganVoluntariado, ganCall, tiempoSim, tablaVoluntariado, tablaCall):
         self.txtGanVol.setText(str(round(ganVoluntariado, 4)))
@@ -64,7 +66,8 @@ class PantallaIngresoDatos(QMainWindow):
             self.tablaSimVolun.setItem(fila, 5, QTableWidgetItem(str(tablaVoluntariado.at[i, "Ganancia Hombres"])))
             self.tablaSimVolun.setItem(fila, 6, QTableWidgetItem(str(tablaVoluntariado.at[i, "Ganancia Total"])))
             self.tablaSimVolun.setItem(fila, 7, QTableWidgetItem(str(tablaVoluntariado.at[i, "Ganancia Acumulada"])))
-            self.tablaSimVolun.setItem(fila, 8, QTableWidgetItem(str(round(tablaVoluntariado.at[i, "Ganancia Promedio"],4))))
+            self.tablaSimVolun.setItem(fila, 8, QTableWidgetItem(str(round(tablaVoluntariado.at[i, "Ganancia Promedio"]
+                                                                           , 4))))
             fila = fila + 1
 
 
@@ -79,8 +82,8 @@ class PantallaIngresoDatos(QMainWindow):
         #     self.tablaSimCall.setItem(fila, 4, QTableWidgetItem(str(self.frecuencias.at[i, "Marca de Clase"])))
 
     def validarDatosValidos(self):
-        cantidadHoras = self.txtCantHoras.text()
-        puntoPartida = self.txtPtoPartida.text()
+        cantidadHoras = float(self.txtCantHoras.text())
+        puntoPartida = float(self.txtPtoPartida.text())
 
         if cantidadHoras == '' or puntoPartida == '':
             QMessageBox.warning(self, "Alerta", "Debe ingresar valores en los campos!")
@@ -91,17 +94,14 @@ class PantallaIngresoDatos(QMainWindow):
         if not self.esDecimal():
             QMessageBox.warning(self, "Alerta", "Los números a ingresar deben ser enteros!")
             return False
-        if float(puntoPartida) > (float(cantidadHoras) - 400):
+        if puntoPartida > (cantidadHoras - 400):
             QMessageBox.warning(self, "Alerta", "El Punto de Partida no puede ser mayor a " + str(cantidadHoras - 400) +
                                 " ya que no se pueden generar las 400 líneas a mostrar!")
             return False
-
-        return True
-
-    def esDecimal(self):
-        if not str(self.txtCantHoras.text()).isdigit():
-            return False
-        if not str(self.txtPtoPartida.text()).isdigit():
+        if cantidadHoras < puntoPartida:
+            QMessageBox.warning(self, "Alerta", "El Punto de Partida no puede ser mayor a la cantidad de horas (" +
+                                                str(cantidadHoras) +
+                                                ") ya que no hay hora simulada con tal valor!")
             return False
 
         return True

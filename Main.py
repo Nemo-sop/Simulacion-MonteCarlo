@@ -1,8 +1,4 @@
-import random
 import sys
-import time
-
-import numpy as np
 from PyQt5.QtWidgets import QApplication
 
 import logicaPantallaIngresoDatos as interfaz
