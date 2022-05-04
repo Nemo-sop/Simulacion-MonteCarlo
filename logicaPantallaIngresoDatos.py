@@ -79,16 +79,19 @@ class PantallaIngresoDatos(QMainWindow):
         #     self.tablaSimCall.setItem(fila, 4, QTableWidgetItem(str(self.frecuencias.at[i, "Marca de Clase"])))
 
     def validarDatosValidos(self):
-        cantidadHoras = float(self.txtCantHoras.text())
-        puntoPartida = float(self.txtPtoPartida.text())
+        cantidadHoras = self.txtCantHoras.text()
+        puntoPartida = self.txtPtoPartida.text()
 
-        if cantidadHoras <= 0 or puntoPartida < 0:
+        if cantidadHoras == '' or puntoPartida == '':
+            QMessageBox.warning(self, "Alerta", "Debe ingresar valores en los campos!")
+            return False
+        if float(cantidadHoras) <= 0 or float(puntoPartida) < 0:
             QMessageBox.warning(self, "Alerta", "Debe ingresar números positivos!")
             return False
         if not self.esDecimal():
             QMessageBox.warning(self, "Alerta", "Los números a ingresar deben ser enteros!")
             return False
-        if puntoPartida > (cantidadHoras - 400):
+        if float(puntoPartida) > (float(cantidadHoras) - 400):
             QMessageBox.warning(self, "Alerta", "El Punto de Partida no puede ser mayor a " + str(cantidadHoras - 400) +
                                 " ya que no se pueden generar las 400 líneas a mostrar!")
             return False
