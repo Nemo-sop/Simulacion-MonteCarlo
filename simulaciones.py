@@ -9,6 +9,7 @@ columnas = ["Hora", "Cant Llamadas", "Cant Llamadas Atendidas", "Cant Compras", 
 
 tabla = pd.DataFrame(columnas)
 
+
 def truncate(values, decs=0):
     """funcion utilizada para truncar nuevaDistr y no trabajar con todos los decimales de python """
     return np.trunc(values * 10 ** decs) / (10 ** decs)
@@ -116,7 +117,7 @@ def simular(horas, cantLlamadas, vector, puntoPartida=0):
                 gastos[sexo] += gastoTemp
 
             if sexo != "nadie":
-                acumAtendidas +=1
+                acumAtendidas += 1
 
             if (puntoPartida <= j < puntoPartida + 20) or j == horas - 1:
                 filaLlamada = pd.DataFrame(
@@ -129,7 +130,6 @@ def simular(horas, cantLlamadas, vector, puntoPartida=0):
                      "Compra": [gastoTemp]
                      })
                 tablaLlamadas = pd.concat([tablaLlamadas, filaLlamada], ignore_index=True)
-
 
         if (puntoPartida <= j < puntoPartida + 400) or j == horas-1:
             gastoTotal = (gastos["mujer"] + gastos["hombre"])
@@ -155,8 +155,6 @@ def simular(horas, cantLlamadas, vector, puntoPartida=0):
     hombreCompra = vector[0][0]*(1-vector[0][1])*vector[0][3] + mujerNoCompra
     hombreNoCompra = vector[0][0]*(1-vector[0][1])*(1-vector[0][3]) + hombreCompra
 
-
-
     print(tablaLlamadas)
 
     return gastoAcumulado / horas, tabla, tablaLlamadas
@@ -181,9 +179,10 @@ def nuevaSimulacion(horas, partida, pantalla, vector=0):
 
     start = time.time()
 
-    ganVoluntariado, tablaVoluntariado, tablaVoluntariadoLlamadas = simular(horas, llamadasHora[0], vector,partida)
+    ganVoluntariado, tablaVoluntariado, tablaVoluntariadoLlamadas = simular(horas, llamadasHora[0], vector, partida)
     ganCall, tablaCall, tablaCallLlamadas = simular(horas, llamadasHora[1], vector,partida)
 
     tiempoSim = time.time() - start
 
-    pantalla.cargarResultados(ganVoluntariado, ganCall, tiempoSim, tablaVoluntariado, tablaCall)
+    pantalla.cargarResultados(ganVoluntariado, ganCall, tiempoSim, tablaVoluntariado, tablaCall
+                              , tablaVoluntariadoLlamadas, tablaCallLlamadas)

@@ -3,6 +3,7 @@ from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QIntValidator, QRegExpValidator
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox
 
+import logicaPantallaResultados
 import simulaciones
 
 
@@ -19,48 +20,43 @@ class PantallaIngresoDatos(QMainWindow):
         self.txtCantHoras.setValidator(QRegExpValidator(regExpr, self))
         self.txtPtoPartida.setValidator(QRegExpValidator(regExpr, self))
 
-    def cargarResultados(self, ganVoluntariado, ganCall, tiempoSim, tablaVoluntariado, tablaCall):
-        self.txtGanVol.setText(str(round(ganVoluntariado, 4)))
-        self.txtGanCall.setText(str(round(ganCall, 4)))
-        self.txtTiempo.setText(str(round(tiempoSim, 2)) + 's')
+    def cargarResultados(self, ganVoluntariado, ganCall, tiempoSim, tablaVoluntariado, tablaCall,
+                         tablaVoluntariadoLlamadas, tablaCallLlamadas):
+        self.pantallaResultados = logicaPantallaResultados.PantallaResultados(ganVoluntariado, ganCall,
+                                                                         tiempoSim, tablaVoluntariado, tablaCall
+                                                                              , tablaVoluntariadoLlamadas
+                                                                              , tablaCallLlamadas)
 
-        self.cargarTabla(tablaVoluntariado, tablaCall)
+        self.pantallaResultados.show()
 
     def nuevaSimulacion(self):
+
         if self.validarDatosValidos():
-            simulaciones.nuevaSimulacion(int(self.txtCantHoras.text()), int(self.txtPtoPartida.text())-1, self)
+            """VectorProb = [[ProbAtencion, ProbMujer, ProbMujerCompra, ProbHombreCompra],
+                                  [GM1, PM1, GM2, PM2, GM3, PM3, GM4, PM4],
+                                  [GH1, PH1, GH2, PH2, GH3, PH3, PH4, PH4],
+                                  [CantLlamadasVol, CantLlamadasCall, Comision]]"""
+            vectorLlamadas = [int(self.txtCantLlamadasVol.text()), int(self.txtCantLlamadasCall.text()),
+                              float(self.txtRecCall.text())]
+            vectorProbs = [float(self.txtProbsAtendidas.text()) / 100,
+                           float(self.txtProbAtMujer.text()) / 100,
+                           float(self.txtCompraMujer.text()) / 100,
+                           float(self.txtCompraHombre.text()) / 100]
 
-    def cargarTabla(self, tablaVoluntariado, tablaCall):
-        fila = -9
+            vectorGastosMujeres = [float(self.txtGastoM1.text()), float(self.txtPorcM1.text()) / 100,
+                                   float(self.txtGastoM2.text()), float(self.txtPorcM2.text()) / 100,
+                                   float(self.txtGastoM3.text()), float(self.txtPorcM3.text()) / 100,
+                                   float(self.txtGastoM4.text()), float(self.txtPorcM4.text()) / 100]
 
-        self.tablaSimCall.setRowCount(len(tablaCall)-9)
+            vectorGastosHombres = [float(self.txtGastoH1.text()), float(self.txtPorcH1.text()) / 100,
+                                   float(self.txtGastoH2.text()), float(self.txtPorcH2.text()) / 100,
+                                   float(self.txtGastoH3.text()), float(self.txtPorcH3.text()) / 100,
+                                   float(self.txtGastoH4.text()), float(self.txtPorcH4.text()) / 100]
 
-        for i in range(len(tablaCall)):
-            self.tablaSimCall.setItem(fila, 0, QTableWidgetItem(str(tablaCall.at[i, "Hora"])))
-            self.tablaSimCall.setItem(fila, 1, QTableWidgetItem(str(tablaCall.at[i, "Cant Llamadas"])))
-            self.tablaSimCall.setItem(fila, 2, QTableWidgetItem(str(tablaCall.at[i, "Cant Llamadas Atendidas"])))
-            self.tablaSimCall.setItem(fila, 3, QTableWidgetItem(str(tablaCall.at[i, "Cant Compras"])))
-            self.tablaSimCall.setItem(fila, 4, QTableWidgetItem(str(tablaCall.at[i, "Ganancia Mujeres"])))
-            self.tablaSimCall.setItem(fila, 5, QTableWidgetItem(str(tablaCall.at[i, "Ganancia Hombres"])))
-            self.tablaSimCall.setItem(fila, 6, QTableWidgetItem(str(tablaCall.at[i, "Ganancia Total"])))
-            self.tablaSimCall.setItem(fila, 7, QTableWidgetItem(str(tablaCall.at[i, "Ganancia Acumulada"])))
-            self.tablaSimCall.setItem(fila, 8, QTableWidgetItem(str(round(tablaCall.at[i, "Ganancia Promedio"],4))))
-            fila = fila + 1
+            self.vectorTodasProbs = [vectorProbs, vectorGastosMujeres, vectorGastosHombres, vectorLlamadas]
 
-        fila = -9
-        self.tablaSimVolun.setRowCount(len(tablaVoluntariado)-9)
-        for i in range(len(tablaVoluntariado)):
-            self.tablaSimVolun.setItem(fila, 0, QTableWidgetItem(str(tablaVoluntariado.at[i, "Hora"])))
-            self.tablaSimVolun.setItem(fila, 1, QTableWidgetItem(str(tablaVoluntariado.at[i, "Cant Llamadas"])))
-            self.tablaSimVolun.setItem(fila, 2, QTableWidgetItem(str(tablaVoluntariado.at[i, "Cant Llamadas Atendidas"])))
-            self.tablaSimVolun.setItem(fila, 3, QTableWidgetItem(str(tablaVoluntariado.at[i, "Cant Compras"])))
-            self.tablaSimVolun.setItem(fila, 4, QTableWidgetItem(str(tablaVoluntariado.at[i, "Ganancia Mujeres"])))
-            self.tablaSimVolun.setItem(fila, 5, QTableWidgetItem(str(tablaVoluntariado.at[i, "Ganancia Hombres"])))
-            self.tablaSimVolun.setItem(fila, 6, QTableWidgetItem(str(tablaVoluntariado.at[i, "Ganancia Total"])))
-            self.tablaSimVolun.setItem(fila, 7, QTableWidgetItem(str(tablaVoluntariado.at[i, "Ganancia Acumulada"])))
-            self.tablaSimVolun.setItem(fila, 8, QTableWidgetItem(str(round(tablaVoluntariado.at[i, "Ganancia Promedio"]
-                                                                           , 4))))
-            fila = fila + 1
+            simulaciones.nuevaSimulacion(int(self.txtCantHoras.text()), int(self.txtPtoPartida.text())-1,
+                                         self, self.vectorTodasProbs)
 
     def validarDatosValidos(self):
 
