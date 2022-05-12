@@ -168,6 +168,7 @@ def nuevaSimulacion(horas, partida, pantalla, vector=0):
                       [GM1, PM1, GM2, PM2, GM3, PM3, GM4, PM4],
                       [GH1, PH1, GH2, PH2, GH3, PH3, PH4, PH4],
                       [CantLlamadasVol, CantLlamadasCall, Comision]]
+    hola
     """
     if vector == 0:
         vector = [[0.85, 0.80, 0.70, 0.40],
