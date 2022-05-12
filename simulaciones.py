@@ -14,7 +14,7 @@ def truncate(values, decs=0):
     return np.trunc(values * 10 ** decs) / (10 ** decs)
 
 
-def situacion(rnd_persona):
+def situacion(rnd_persona, vectorProb):
     """
     A partir de la tabla obtenida de personas que compran y que no con su sexo,
     permite que a partir de un número random, se obtenga el resultado correspondiente.
@@ -23,47 +23,72 @@ def situacion(rnd_persona):
      con una distribución uniforme.
     :return: Boolean, string: Se devuelve como booleano si compra y
      un string que indica el sexo de la persona que responde.
+
+    VectorProb = [[ProbAtencion, ProbMujer, ProbMujerCompra, ProbHombreCompra],
+                  [GM1, PM1, GM2, PM2, GM3, PM3, GM4, PM4],
+                  [GH1, PH1, GH2, PH2, GH3, PH3, PH4, PH4],
+                  [CantLlamadasVol, CantLlamadasCall, Comision]]
     """
-    if rnd_persona < 0.15:
+    #Calculo de prob acumuladas
+
+
+    nadieAteinde = 1-vectorProb[0][0]
+    mujerCompra = vectorProb[0][0]*vectorProb[0][1]*vectorProb[0][2] + nadieAteinde
+    mujerNoCompra = vectorProb[0][0]*vectorProb[0][1]*(1-vectorProb[0][2]) + mujerCompra
+    hombreCompra = vectorProb[0][0]*(1-vectorProb[0][1])*vectorProb[0][3] + mujerNoCompra
+    hombreNoCompra = vectorProb[0][0]*(1-vectorProb[0][1])*(1-vectorProb[0][3]) + hombreCompra
+
+
+    if rnd_persona < nadieAteinde:
         return False, "nadie"
-    elif rnd_persona < 0.626:
+    elif rnd_persona < mujerCompra:
         return True, "mujer"
-    elif rnd_persona < 0.83:
+    elif rnd_persona < mujerNoCompra:
         return False, "mujer"
-    elif rnd_persona < 0.898:
+    elif rnd_persona < hombreCompra:
         return True, "hombre"
     else:
         return False, "hombre"
 
 
-def gasto(sexo, rnd):
+def gasto(sexo, rnd, v):
+    """
+        VectorProb = [[ProbAtencion, ProbMujer, ProbMujerCompra, ProbHombreCompra],
+                      [GM1, PM1, GM2, PM2, GM3, PM3, GM4, PM4],
+                      [GH1, PH1, GH2, PH2, GH3, PH3, PH4, PH4],
+                      [CantLlamadasVol, CantLlamadasCall, Comision]]
+    """
+
+
     if sexo == "hombre":
-        if rnd < 0.05:
-            return 5
-        elif rnd < 0.25:
-            return 10
-        elif rnd < 0.6:
-            return 15
+        if rnd < v[2][1]:
+            return v[2][0]
+        elif rnd < v[2][3]+v[2][1]:
+            return v[2][2]
+        elif rnd < v[2][5]+v[2][3]+v[2][1]:
+            return v[2][4]
         else:
-            return 25
+            return v[2][6]
     else:
-        if rnd < 0.2:
-            return 5
-        elif rnd < 0.8:
-            return 10
-        elif rnd < 0.95:
-            return 15
+        if rnd < v[1][1]:
+            return v[1][0]
+        elif rnd < v[1][3]+v[1][1]:
+            return v[1][2]
+        elif rnd < v[1][5]+v[1][3]+v[1][1]:
+            return v[1][4]
         else:
-            return 25
+            return v[1][6]
 
 
-def simular(horas, cantLlamadas, puntoPartida=0):
+def simular(horas, cantLlamadas, vector, puntoPartida=0):
 
     global gastoTotal
     columnas = ["Hora", "Cant Llamadas", "Cant Llamadas Atendidas", "Cant Compras", "Ganancia Mujeres",
                 "Ganancia Hombres", "Ganancia Total", "Ganancia Acumulada", "Ganancia Promedio"]
+    columnasLlamadas = ["Hora", "Numero", "RndAtendida", "Atendida", "Compra", "RndCompra", "Compra"]
 
     tabla = pd.DataFrame(columnas)
+    tablaLlamadas = pd.DataFrame(columnasLlamadas)
 
     gastoAcumulado = 0
 
@@ -75,13 +100,15 @@ def simular(horas, cantLlamadas, puntoPartida=0):
         for k in range(cantLlamadas):
 
             rnd1 = random.random()
-            consume, sexo = situacion(rnd1)
+            consume, sexo = situacion(rnd1, vector)
+            rnd2= "n/a"
+            gastoTemp = 0
             if consume:
                 rnd2 = random.random()
-                gastoTemp = gasto(sexo, rnd2)
+                gastoTemp = gasto(sexo, rnd2, vector)
 
                 if cantLlamadas == 28:
-                    gastoTemp = gastoTemp*0.65
+                    gastoTemp = gastoTemp*(1-(vector[3][2]/100))
 
                 gastoAcumulado += gastoTemp
 
@@ -90,6 +117,19 @@ def simular(horas, cantLlamadas, puntoPartida=0):
 
             if sexo != "nadie":
                 acumAtendidas +=1
+
+            if (puntoPartida <= j < puntoPartida + 20) or j == horas - 1:
+                filaLlamada = pd.DataFrame(
+                    {"Hora": [j + 1],
+                     "Numero": [k+1],
+                     "RndAtendida": [rnd1],
+                     "Atendida": [sexo],
+                     "Consume": [consume],
+                     "RndCompra":[rnd2],
+                     "Compra": [gastoTemp]
+                     })
+                tablaLlamadas = pd.concat([tablaLlamadas, filaLlamada], ignore_index=True)
+
 
         if (puntoPartida <= j < puntoPartida + 400) or j == horas-1:
             gastoTotal = (gastos["mujer"] + gastos["hombre"])
@@ -108,17 +148,40 @@ def simular(horas, cantLlamadas, puntoPartida=0):
 
             tabla = pd.concat([tabla, fila], ignore_index=True)
 
-    return gastoAcumulado / horas, tabla
+
+    nadieAteinde = 1-vector[0][0]
+    mujerCompra = vector[0][0]*vector[0][1]*vector[0][2] + nadieAteinde
+    mujerNoCompra = vector[0][0]*vector[0][1]*(1-vector[0][2]) + mujerCompra
+    hombreCompra = vector[0][0]*(1-vector[0][1])*vector[0][3] + mujerNoCompra
+    hombreNoCompra = vector[0][0]*(1-vector[0][1])*(1-vector[0][3]) + hombreCompra
 
 
-def nuevaSimulacion(horas, partida,pantalla):
 
-    llamadasHora = [20, 28]
+    print(tablaLlamadas)
+
+    return gastoAcumulado / horas, tabla, tablaLlamadas
+
+
+def nuevaSimulacion(horas, partida, pantalla, vector=0):
+    """
+        VectorProb = [[ProbAtencion, ProbMujer, ProbMujerCompra, ProbHombreCompra],
+                      [GM1, PM1, GM2, PM2, GM3, PM3, GM4, PM4],
+                      [GH1, PH1, GH2, PH2, GH3, PH3, PH4, PH4],
+                      [CantLlamadasVol, CantLlamadasCall, Comision]]
+    """
+    if vector == 0:
+        vector = [[0.85, 0.80, 0.70, 0.40],
+                      [5, 0.20, 10, 0.60, 15, 0.15, 25, 0.5],
+                      [5, 0.05, 10, 0.20, 15, 0.35, 25, 0.40],
+                      [20, 28, 35]]
+
+    llamadasHora = [vector[3][0], vector[3][1]]
+
 
     start = time.time()
 
-    ganVoluntariado, tablaVoluntariado = simular(horas, llamadasHora[0], partida)
-    ganCall, tablaCall = simular(horas, llamadasHora[1], partida)
+    ganVoluntariado, tablaVoluntariado, tablaVoluntariadoLlamadas = simular(horas, llamadasHora[0], vector,partida)
+    ganCall, tablaCall, tablaCallLlamadas = simular(horas, llamadasHora[1], vector,partida)
 
     tiempoSim = time.time() - start
 
