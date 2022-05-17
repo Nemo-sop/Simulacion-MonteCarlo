@@ -41,15 +41,15 @@ def situacion(rnd_persona, vectorProb):
 
 
     if rnd_persona < nadieAteinde:
-        return False, "nadie"
+        return False, "Nadie"
     elif rnd_persona < mujerCompra:
-        return True, "mujer"
+        return True, "Mujer"
     elif rnd_persona < mujerNoCompra:
-        return False, "mujer"
+        return False, "Mujer"
     elif rnd_persona < hombreCompra:
-        return True, "hombre"
+        return True, "Hombre"
     else:
-        return False, "hombre"
+        return False, "Hombre"
 
 
 def gasto(sexo, rnd, v):
@@ -96,7 +96,7 @@ def simular(horas, cantLlamadas, vector, puntoPartida=0):
     for j in range(horas):
         acumAtendidas = 0
         acumCompra = 0
-        gastos = {"hombre": 0, "mujer": 0}
+        gastos = {"Hombre": 0, "Mujer": 0}
 
         for k in range(cantLlamadas):
 
@@ -116,7 +116,7 @@ def simular(horas, cantLlamadas, vector, puntoPartida=0):
                 acumCompra += 1
                 gastos[sexo] += gastoTemp
 
-            if sexo != "nadie":
+            if sexo != "Nadie":
                 acumAtendidas += 1
 
             if (puntoPartida <= j < puntoPartida + 20) or j == horas - 1:
@@ -132,22 +132,21 @@ def simular(horas, cantLlamadas, vector, puntoPartida=0):
                 tablaLlamadas = pd.concat([tablaLlamadas, filaLlamada], ignore_index=True)
 
         if (puntoPartida <= j < puntoPartida + 400) or j == horas-1:
-            gastoTotal = (gastos["mujer"] + gastos["hombre"])
+            gastoTotal = (gastos["Mujer"] + gastos["Hombre"])
 
             fila = pd.DataFrame(
                 {"Hora": [j+1],
                  "Cant Llamadas": [cantLlamadas],
                  "Cant Llamadas Atendidas": [acumAtendidas],
                  "Cant Compras": [acumCompra],
-                 "Ganancia Mujeres": [gastos["mujer"]],
-                 "Ganancia Hombres": [gastos["hombre"]],
+                 "Ganancia Mujeres": [gastos["Mujer"]],
+                 "Ganancia Hombres": [gastos["Hombre"]],
                  "Ganancia Total": [gastoTotal],
                  "Ganancia Acumulada": [gastoAcumulado],
                  "Ganancia Promedio": [gastoAcumulado/(j+1)]
                  })
 
             tabla = pd.concat([tabla, fila], ignore_index=True)
-
 
     nadieAteinde = 1-vector[0][0]
     mujerCompra = vector[0][0]*vector[0][1]*vector[0][2] + nadieAteinde
@@ -180,7 +179,7 @@ def nuevaSimulacion(horas, partida, pantalla, vector=0):
     start = time.time()
 
     ganVoluntariado, tablaVoluntariado, tablaVoluntariadoLlamadas = simular(horas, llamadasHora[0], vector, partida)
-    ganCall, tablaCall, tablaCallLlamadas = simular(horas, llamadasHora[1], vector,partida)
+    ganCall, tablaCall, tablaCallLlamadas = simular(horas, llamadasHora[1], vector, partida)
 
     tiempoSim = time.time() - start
 

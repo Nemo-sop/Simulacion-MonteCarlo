@@ -1,7 +1,7 @@
 from PyQt5 import uic
 from PyQt5.QtCore import QRegExp
-from PyQt5.QtGui import QIntValidator, QRegExpValidator
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox
+from PyQt5.QtGui import QRegExpValidator
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 import logicaPantallaResultados
 import simulaciones

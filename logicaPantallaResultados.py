@@ -1,6 +1,8 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 
+import simulaciones
+
 
 class PantallaResultados(QMainWindow):
     """Incializar clase"""
@@ -65,14 +67,23 @@ class PantallaResultados(QMainWindow):
             self.tablaSimLlamadasVol.setItem(fila, 0, QTableWidgetItem(str(tablaVoluntariadoLlamadas.at[i, "Hora"])))
             self.tablaSimLlamadasVol.setItem(fila, 1, QTableWidgetItem(str(tablaVoluntariadoLlamadas.
                                                                            at[i, "Numero"])))
-            self.tablaSimLlamadasVol.setItem(fila, 2, QTableWidgetItem(str(tablaVoluntariadoLlamadas.
-                                                                           at[i, "RndAtendida"])))
-            self.tablaSimLlamadasVol.setItem(fila, 3, QTableWidgetItem(str(tablaVoluntariadoLlamadas.
-                                                                           at[i, "Atendida"])))
-            self.tablaSimLlamadasVol.setItem(fila, 4, QTableWidgetItem(str(tablaVoluntariadoLlamadas.
-                                                                           at[i, "Consume"])))
-            self.tablaSimLlamadasVol.setItem(fila, 5, QTableWidgetItem(str(tablaVoluntariadoLlamadas.
-                                                                           at[i, "RndCompra"])))
+            rndAtentida = tablaVoluntariadoLlamadas.at[i, "RndAtendida"]
+            self.tablaSimLlamadasVol.setItem(fila, 2, QTableWidgetItem(str(simulaciones.truncate(rndAtentida, 4))))
+            self.tablaSimLlamadasVol.setItem(fila, 3, QTableWidgetItem(str(tablaVoluntariadoLlamadas.at[i, "Atendida"])))
+
+            consumio = tablaVoluntariadoLlamadas.at[i, "Consume"]
+            if consumio:
+                self.tablaSimLlamadasVol.setItem(fila, 4, QTableWidgetItem("SI"))
+            else:
+                self.tablaSimLlamadasVol.setItem(fila, 4, QTableWidgetItem("NO"))
+
+            rndCompra = tablaVoluntariadoLlamadas.at[i, "RndCompra"]
+            if rndCompra == "n/a":
+                self.tablaSimLlamadasVol.setItem(fila, 5,
+                                                 QTableWidgetItem(str(rndCompra)))
+            else:
+                self.tablaSimLlamadasVol.setItem(fila, 5, QTableWidgetItem(str(simulaciones.truncate(rndCompra, 4))))
+
             self.tablaSimLlamadasVol.setItem(fila, 6, QTableWidgetItem(str(tablaVoluntariadoLlamadas.at[i, "Compra"])))
             fila = fila + 1
 
@@ -81,12 +92,22 @@ class PantallaResultados(QMainWindow):
         for i in range(len(tablaCallLlamadas)):
             self.tablaSimLlamadasCall.setItem(fila, 0, QTableWidgetItem(str(tablaCallLlamadas.at[i, "Hora"])))
             self.tablaSimLlamadasCall.setItem(fila, 1, QTableWidgetItem(str(tablaCallLlamadas.at[i, "Numero"])))
-            self.tablaSimLlamadasCall.setItem(fila, 2,
-                                              QTableWidgetItem(str(tablaCallLlamadas.at[i, "RndAtendida"])))
+            rndAtentida = tablaCallLlamadas.at[i, "RndAtendida"]
+            self.tablaSimLlamadasCall.setItem(fila, 2, QTableWidgetItem(str(simulaciones.truncate(rndAtentida, 4))))
             self.tablaSimLlamadasCall.setItem(fila, 3, QTableWidgetItem(str(tablaCallLlamadas.at[i, "Atendida"])))
-            self.tablaSimLlamadasCall.setItem(fila, 4, QTableWidgetItem(str(tablaCallLlamadas.
-                                                                            at[i, "Consume"])))
-            self.tablaSimLlamadasCall.setItem(fila, 5, QTableWidgetItem(str(tablaCallLlamadas.
-                                                                            at[i, "RndCompra"])))
+
+            consumio = tablaCallLlamadas.at[i, "Consume"]
+            if consumio:
+                self.tablaSimLlamadasCall.setItem(fila, 4, QTableWidgetItem("SI"))
+            else:
+                self.tablaSimLlamadasCall.setItem(fila, 4, QTableWidgetItem("NO"))
+
+            rndCompra = tablaCallLlamadas.at[i, "RndCompra"]
+            if rndCompra == "n/a":
+                self.tablaSimLlamadasCall.setItem(fila, 5,
+                                                 QTableWidgetItem(str(rndCompra)))
+            else:
+                self.tablaSimLlamadasCall.setItem(fila, 5, QTableWidgetItem(str(simulaciones.truncate(rndCompra, 4))))
+
             self.tablaSimLlamadasCall.setItem(fila, 6, QTableWidgetItem(str(tablaCallLlamadas.at[i, "Compra"])))
             fila = fila + 1

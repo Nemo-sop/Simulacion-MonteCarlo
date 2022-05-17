@@ -431,12 +431,15 @@
     <pointsize>11</pointsize>
    </font>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::ClickFocus</enum>
+  </property>
   <property name="windowTitle">
-   <string>Variables Aleatorias - Ingreso Datos</string>
+   <string>Estudio Recaudación de Lotería - Ingreso Datos</string>
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../ProyectosGIT/tp3-sim/imagenes/dado.png</normaloff>../../ProyectosGIT/tp3-sim/imagenes/dado.png</iconset>
+    <normaloff>imagenes/dado.png</normaloff>imagenes/dado.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label_5">
@@ -523,8 +526,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>590</y>
+      <x>760</x>
+      <y>600</y>
       <width>101</width>
       <height>51</height>
      </rect>
@@ -1516,8 +1519,8 @@
    <widget class="QLineEdit" name="txtProbsAtendidas">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>200</y>
+      <x>690</x>
+      <y>230</y>
       <width>51</width>
       <height>20</height>
      </rect>
@@ -1536,8 +1539,8 @@
    <widget class="QLabel" name="label_38">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>200</y>
+      <x>750</x>
+      <y>230</y>
       <width>31</width>
       <height>16</height>
      </rect>
@@ -1549,8 +1552,8 @@
    <widget class="QLabel" name="label_39">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>200</y>
+      <x>550</x>
+      <y>230</y>
       <width>161</width>
       <height>16</height>
      </rect>
@@ -1562,8 +1565,8 @@
    <widget class="QLineEdit" name="txtProbAtMujer">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>260</y>
+      <x>690</x>
+      <y>290</y>
       <width>51</width>
       <height>20</height>
      </rect>
@@ -1582,8 +1585,8 @@
    <widget class="QLabel" name="label_40">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>260</y>
+      <x>750</x>
+      <y>290</y>
       <width>31</width>
       <height>16</height>
      </rect>
@@ -1595,8 +1598,8 @@
    <widget class="QLabel" name="label_41">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>260</y>
+      <x>550</x>
+      <y>290</y>
       <width>171</width>
       <height>16</height>
      </rect>
@@ -1632,8 +1635,8 @@
    <widget class="QLabel" name="label_42">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>230</y>
+      <x>500</x>
+      <y>260</y>
       <width>221</width>
       <height>16</height>
      </rect>
@@ -1663,6 +1666,11 @@
       <width>221</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <underline>true</underline>
+     </font>
     </property>
     <property name="text">
      <string>Porcentaje de ....</string>
@@ -1707,11 +1715,67 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
+   <widget class="QLabel" name="label_44">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>170</y>
+      <width>221</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>(Se ubican los valores por defecto.)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_45">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>200</y>
+      <width>221</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="text">
+     <string>Porcentaje de ....</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <tabstops>
   <tabstop>txtCantHoras</tabstop>
+  <tabstop>txtPtoPartida</tabstop>
+  <tabstop>txtCantLlamadasVol</tabstop>
+  <tabstop>txtCantLlamadasCall</tabstop>
+  <tabstop>txtRecCall</tabstop>
+  <tabstop>txtProbsAtendidas</tabstop>
+  <tabstop>txtProbAtMujer</tabstop>
+  <tabstop>txtCompraMujer</tabstop>
+  <tabstop>txtCompraHombre</tabstop>
+  <tabstop>txtPorcM1</tabstop>
+  <tabstop>txtGastoM1</tabstop>
+  <tabstop>txtPorcM2</tabstop>
+  <tabstop>txtGastoM2</tabstop>
+  <tabstop>txtPorcM3</tabstop>
+  <tabstop>txtGastoM3</tabstop>
+  <tabstop>txtPorcM4</tabstop>
+  <tabstop>txtGastoM4</tabstop>
+  <tabstop>txtPorcH1</tabstop>
+  <tabstop>txtGastoH1</tabstop>
+  <tabstop>txtPorcH2</tabstop>
+  <tabstop>txtGastoH2</tabstop>
+  <tabstop>txtPorcH3</tabstop>
+  <tabstop>txtGastoH3</tabstop>
+  <tabstop>txtPorcH4</tabstop>
+  <tabstop>txtGastoH4</tabstop>
+  <tabstop>btnSimular</tabstop>
  </tabstops>
  <resources/>
  <connections/>
